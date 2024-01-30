@@ -309,10 +309,13 @@ export default function EnhancedTable() {
 
   };
 
-  const handleAddClick = () => {
+  const handleAddClick = async () => {
+    const response = await $axios.get('/api/users'); 
+
+      let new_userid = response.data.length + 1;
 
     setEvent('add');
-    setTask(createTask('', '', '', '', { userId: '', displayName: '' }, 'low', '', 'pending'));
+    setTask(createTask('', '', '', '', { userId: new_userid.toString(), displayName: '' }, 'low', '', 'pending'));
 
 
   };
@@ -651,6 +654,7 @@ export default function EnhancedTable() {
                     id="outlined-required"
                     label="userid"
                     fullWidth
+                    disabled
                     value={task.assignee.userId}
                     onChange={(e) => handleAssigneeChange('userId', e.target.value)}
                   />
@@ -659,7 +663,7 @@ export default function EnhancedTable() {
                   <TextField
 
                     id="outlined-required"
-                    label="displayName"
+                    label="user name"
                     fullWidth
                     value={task.assignee.displayName}
                     onChange={(e) => handleAssigneeChange('displayName', e.target.value)}
