@@ -149,6 +149,12 @@ const headCells: readonly HeadCell[] = [
     label: 'status',
   },
   {
+    id: 'user',
+    numeric: false,
+    disablePadding: false,
+    label: 'User',
+  },
+  {
     id: 'edit',
     numeric: false,
     disablePadding: false,
@@ -257,7 +263,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 export default function EnhancedTable() {
-  const [order, setOrder] = React.useState<Order>('asc');
+  const [order, setOrder] = React.useState<string>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Task>('title');
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [tasks, setTasks] = React.useState<Task[]>([]);
@@ -526,6 +532,7 @@ export default function EnhancedTable() {
                         <TableCell align="left">{row.priorityLevel}</TableCell>
                       
                         <TableCell align="left">{row.status}</TableCell>
+                        <TableCell align="left">{row.assignee.displayName}</TableCell>
                         <TableCell>
                           <Tooltip title="Edit">
                             <IconButton  onClick={() => edit_items(row)}>
@@ -647,7 +654,7 @@ export default function EnhancedTable() {
 
               <Box sx={{ padding: 1 }}>
                 <div  >
-                  <h4>Assignee<hr /></h4>
+                  <h4>User</h4>
 
                   <TextField
 
